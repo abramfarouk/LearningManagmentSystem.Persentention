@@ -6,7 +6,10 @@ namespace LMS.Data.Data.Entities.Config
     {
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("Notifications");
+            builder.Property(n => n.Message).HasMaxLength(1000).HasColumnType("VARCHAR").IsRequired();
+            builder.Property(n => n.SendDate).IsRequired();
+            builder.HasOne(n => n.User).WithMany(u => u.Notifications).HasForeignKey(n => n.UserId);
         }
     }
 }

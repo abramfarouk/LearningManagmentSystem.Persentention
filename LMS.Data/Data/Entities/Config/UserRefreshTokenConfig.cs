@@ -6,7 +6,8 @@ namespace LMS.Data.Data.Entities.Config
     {
         public void Configure(EntityTypeBuilder<UserRefreshToken> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("UserRefreshTokens");
+            builder.HasOne(ur => ur.User).WithMany(u => u.UserRefreshTokens).HasForeignKey(ur => ur.UserId);
         }
     }
 }

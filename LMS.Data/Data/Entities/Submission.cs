@@ -8,7 +8,6 @@
 
         public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; } = null!;
-
         public Grade grade { get; set; } = null!;
 
         public int UserId { get; set; }

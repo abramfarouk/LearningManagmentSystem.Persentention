@@ -6,7 +6,10 @@ namespace LMS.Data.Data.Entities.Config
     {
         public void Configure(EntityTypeBuilder<Grade> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("Grades");
+
+            builder.Property(g => g.grade).IsRequired();
+            builder.HasOne(g => g.Submission).WithOne(s => s.grade).HasForeignKey<Grade>(g => g.SubmissionId);
         }
     }
 }

@@ -6,7 +6,7 @@
         public DateTime EnrollmentDate { get; set; }
 
         public int CourseId { get; set; }
-        public virtual Course Courses { get; set; } = null!;
+        public virtual Course Course { get; set; } = null!;
         public int UserId { get; set; }
         public virtual User? User { get; set; }
     }
