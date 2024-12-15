@@ -7,7 +7,8 @@ namespace LMS.Data.Data.Entities.Config
         public void Configure(EntityTypeBuilder<ForumPost> builder)
         {
             builder.ToTable("ForumPosts");
-
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Content).HasColumnName("Content").HasMaxLength(300).IsRequired();
             builder.Property(x => x.PostDate).IsRequired();
             builder.HasOne(x => x.User).WithMany(x => x.ForumPosts).HasForeignKey(x => x.UserId);

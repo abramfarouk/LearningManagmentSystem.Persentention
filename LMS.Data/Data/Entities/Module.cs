@@ -12,8 +12,8 @@
         public string? Description { get; set; }
         public virtual ICollection<Lesson>? Lessons { get; set; } = new HashSet<Lesson>();
 
-        public int CourseId { get; set; }
-        public virtual Course Course { get; set; } = null!;
+        public int? CourseId { get; set; }
+        public virtual Course? Course { get; set; } = null!;
 
     }
 }

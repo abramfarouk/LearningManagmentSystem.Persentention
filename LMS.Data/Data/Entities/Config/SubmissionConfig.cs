@@ -7,6 +7,8 @@ namespace LMS.Data.Data.Entities.Config
         public void Configure(EntityTypeBuilder<Submission> builder)
         {
             builder.ToTable("Submissions");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(s => s.Content).HasColumnType("VARCHAR").HasMaxLength(500).IsRequired();
             builder.Property(s => s.SubmissionDate).IsRequired();
             builder.HasOne(s => s.Assignment).WithMany(a => a.Submissions).HasForeignKey(s => s.AssignmentId);

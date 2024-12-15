@@ -7,6 +7,8 @@ namespace LMS.Data.Data.Entities.Config
         public void Configure(EntityTypeBuilder<Forum> builder)
         {
             builder.ToTable("Forums");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(f => f.Title).HasColumnType("VARCHAR").HasMaxLength(500);
             builder.HasOne(f => f.Course).WithMany(c => c.Forums).HasForeignKey(f => f.CourseId);
         }

@@ -1,14 +1,15 @@
 ﻿
 
 using LMS.Data.Data.Entities;
+using System.Reflection;
 
 namespace LMS.Data.Data
 {
     public class ApplicationDbcontext : IdentityDbContext<User, Role, int,
-        IdentityUserClaim<int>, IdentityUserRole<int>
-      , IdentityUserLogin<int>, IdentityRoleClaim<int>,
-        IdentityUserToken<int>>
+        IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
+
     {
+
         #region Ctor 
         public ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : base(options)
         { }
@@ -34,6 +35,10 @@ namespace LMS.Data.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
         }
 
 

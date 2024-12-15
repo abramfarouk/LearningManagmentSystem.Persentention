@@ -8,9 +8,9 @@ namespace LMS.Data.Data.Entities
 
         public DateTime IssueDate { get; set; }
 
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
         public Course? Course { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public virtual User? User { get; set; }
 
     }

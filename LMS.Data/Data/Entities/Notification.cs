@@ -7,7 +7,7 @@ namespace LMS.Data.Data.Entities
         public string? Message { get; set; }
         public DateTime SendDate { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int? UserId { get; set; }
+        public User? User { get; set; }
     }
 }

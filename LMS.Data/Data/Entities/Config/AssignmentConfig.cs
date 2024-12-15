@@ -7,6 +7,8 @@ namespace LMS.Data.Data.Entities.Config
         public void Configure(EntityTypeBuilder<Assignment> builder)
         {
             builder.ToTable("Assignmets");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Title).HasColumnType("VARCHAR").HasMaxLength(500).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.HasOne(s => s.Course).WithMany(c => c.Assignments).HasForeignKey(s => s.CourseId);

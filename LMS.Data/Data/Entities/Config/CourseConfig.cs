@@ -7,6 +7,8 @@ namespace LMS.Data.Data.Entities.Config
         public void Configure(EntityTypeBuilder<Course> builder)
         {
             builder.ToTable("Courses");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(c => c.Title).HasColumnType("VARCHAR").HasMaxLength(500).IsRequired();
             builder.Property(c => c.Level).HasColumnType("VARCHAR").HasMaxLength(500).IsRequired(false);
             builder.Property(c => c.CreateDate).IsRequired();
