@@ -12,6 +12,8 @@ namespace LMS.Data
             });
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+
+
             return services;
 
         }

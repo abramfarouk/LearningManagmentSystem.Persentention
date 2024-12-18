@@ -7,7 +7,6 @@ namespace LMS.Data.Data.Entities
         public int Id { get; set; }
 
         public DateTime IssueDate { get; set; }
-
         public int? CourseId { get; set; }
         public Course? Course { get; set; }
         public int? UserId { get; set; }

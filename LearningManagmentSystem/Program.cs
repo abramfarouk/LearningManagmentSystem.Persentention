@@ -1,4 +1,5 @@
 
+using LMS.Bussiness;
 using LMS.Data;
 
 namespace LearningManagmentSystem
@@ -14,7 +15,9 @@ namespace LearningManagmentSystem
             builder.Services.AddSwaggerGen();
 
             #region Add_Custom_Services 
-            builder.Services.AddServicesData(builder.Configuration);
+            builder.Services.AddServicesData(builder.Configuration)
+                .AddRegisterationService(builder.Configuration);
+
 
             #endregion
 
