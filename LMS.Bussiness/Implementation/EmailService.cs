@@ -7,7 +7,7 @@ using MimeKit;
 
 namespace LMS.Bussiness.Implementation
 {
-    public class EmailService : IEmailService
+    public class EmailService : ResponseHandler, IEmailService
     {
 
         private readonly EmailSettings _emailSettings;
@@ -16,6 +16,7 @@ namespace LMS.Bussiness.Implementation
         {
             _emailSettings = emailSettings;
         }
+
 
 
         public async Task<GResponse<string>> SendEmailAsync(string email, string mess)
@@ -44,23 +45,13 @@ namespace LMS.Bussiness.Implementation
                     await client.SendAsync(message);
                     await client.DisconnectAsync(true);
 
-                    return new GResponse<string>()
-                    {
-                        IsSuccess = true,
-                        Message = "Send Email Is Successfull !",
-                        StatusCode = HttpStatusCode.OK
-                    };
-
-
-
+                    return Success("Send Email Is Successfull !");
                 }
-
 
             }
             catch (Exception ex)
             {
-
-                return ErrorRespone($"An error occurred: {ex.Message}", HttpStatusCode.InternalServerError);
+                return BadRequest<string>($"An error occurred: {ex.Message}");
             }
 
 

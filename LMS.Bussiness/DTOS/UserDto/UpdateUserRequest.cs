@@ -3,6 +3,7 @@
     public class UpdateUserRequest
     {
         public int UserId { get; set; }
+        public string UserName => FirstName + "_" + LastName;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? City { get; set; }

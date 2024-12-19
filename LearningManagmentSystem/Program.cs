@@ -16,7 +16,8 @@ namespace LearningManagmentSystem
 
             #region Add_Custom_Services 
             builder.Services.AddServicesData(builder.Configuration)
-                .AddRegisterationService(builder.Configuration);
+                .AddRegisterationService(builder.Configuration)
+                .AddLMSBussinessServices();
 
 
             #endregion
