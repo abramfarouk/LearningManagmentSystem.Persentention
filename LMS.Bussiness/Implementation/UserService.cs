@@ -101,6 +101,35 @@ namespace LMS.Bussiness.Implementation
 
         }
 
+        public async Task<GResponse<string>> ChangeUserPasswordAsync(ChangeUserPasswordDto request)
+        {
+            try
+            {
+
+                var OldUser = await _userManager.FindByIdAsync(request.Id.ToString());
+                if (OldUser == null)
+                {
+                    return NotFound<string>($"user not Found by ID {request.Id}");
+                }
+                var result = await _userManager.ChangePasswordAsync(OldUser, request.CurrentPassword, request.NewPassword);
+                if (result.Succeeded)
+                {
+                    return Success<string>("Password Changed Successfully");
+                }
+                else
+                {
+                    return BadRequest<string>(null, GetErrors(result.Errors));
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest<string>($"An error occurred: {ex.Message}");
+            }
+        }
+
         public async Task<GResponse<string>> DeleteUserAsync(int userId)
         {
             try

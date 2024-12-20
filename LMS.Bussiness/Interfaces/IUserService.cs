@@ -9,6 +9,8 @@ namespace LMS.Bussiness.Interfaces
         public Task<GResponse<string>> AddUserAsync(AddUserRequest request, string roleName);
         public Task<GResponse<string>> UpdateUserAsync(UpdateUserRequest request);
         public Task<GResponse<string>> DeleteUserAsync(int userId);
+        public Task<GResponse<string>> ChangeUserPasswordAsync(ChangeUserPasswordDto request);
+
 
         //------------------Query--------------------
         public Task<GResponse<IEnumerable<UserResponseDto>>> GetUserListAsync();

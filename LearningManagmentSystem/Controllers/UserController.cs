@@ -54,6 +54,22 @@ namespace LearningManagmentSystem.Controllers
 
 
 
+        [HttpPost("Change-Password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordDto request)
+        {
+            var response = await _userService.ChangeUserPasswordAsync(request);
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
+
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+
+            return Ok(response);
+        }
 
         [HttpPost("Add-Student")]
         public async Task<IActionResult> AddStudent([FromBody] AddUserRequest request)
