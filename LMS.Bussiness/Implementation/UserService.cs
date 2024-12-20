@@ -303,7 +303,6 @@ namespace LMS.Bussiness.Implementation
             }
         }
 
-
         #endregion
         private List<string> GetErrors(IEnumerable<IdentityError> errors)
         {

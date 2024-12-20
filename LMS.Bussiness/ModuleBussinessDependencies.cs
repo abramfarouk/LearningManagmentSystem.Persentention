@@ -28,12 +28,16 @@ namespace LMS.Bussiness
                 return factory.GetUrlHelper(actionContext!);
             });
 
+            #region Services  
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            // services.AddScoped<ICertificationService, CertificationService>();
+            services.AddScoped<ICertificationService, CertificationService>();
+            services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IModuleService, ModuleService>();
+            #endregion
             return services;
         }
     }

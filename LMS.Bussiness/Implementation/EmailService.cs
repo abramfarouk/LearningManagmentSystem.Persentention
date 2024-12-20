@@ -17,8 +17,6 @@ namespace LMS.Bussiness.Implementation
             _emailSettings = emailSettings;
         }
 
-
-
         public async Task<GResponse<string>> SendEmailAsync(string email, string mess)
         {
             try

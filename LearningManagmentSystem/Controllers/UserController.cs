@@ -37,8 +37,6 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
         }
 
-
-
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetStudentByIdAsync(int StdId)
         {
@@ -51,8 +49,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
-
 
         [HttpPost("Change-Password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordDto request)

@@ -4,6 +4,6 @@
     {
 
         //ID For Update
-        public int CertificationID { get; set; }
+        public int Certificated_Id { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class AddCeritificationRequest
     {
-        public int CourseID { get; set; }
-        public int StudentID { get; set; }
+        public int Crs_Id { get; set; }
+        public int Std_Id { get; set; }
     }
 }

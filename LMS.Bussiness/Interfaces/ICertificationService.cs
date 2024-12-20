@@ -1,5 +1,4 @@
-﻿using LMS.Bussiness.Bases;
-using LMS.Bussiness.DTOS.CertificateDtos;
+﻿using LMS.Bussiness.DTOS.CertificateDtos;
 using LMS.Data.Bases;
 
 namespace LMS.Bussiness.Interfaces
@@ -16,7 +15,7 @@ namespace LMS.Bussiness.Interfaces
 
         public Task<GResponse<List<CerificationResponseDto>>> GetCerificationListAsync();
         public Task<GResponse<PigatedResult<CerificationResponseDto>>> GetCerificationPigationListAsync(CertificationPaginatedListRequest request);
-        public Task<GResponse<CerificationResponseDto>> GetCerificationByIdAsync();
+        public Task<GResponse<CerificationResponseDto>> GetCerificationByIdAsync(int Crs_Id);
 
         #endregion
     }
