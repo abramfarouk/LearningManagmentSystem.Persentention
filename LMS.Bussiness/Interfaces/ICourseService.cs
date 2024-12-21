@@ -10,7 +10,7 @@ namespace LMS.Bussiness.Interfaces
         public Task<GResponse<string>> DeleteCourseAsync(int courseId);
         public Task<GResponse<CourseResponseDto>> GetCourseByIdAsync(int courseId);
         public Task<GResponse<List<CourseResponseDto>>> GetAllCoursesAsync();
-        public Task<GResponse<PigatedResult<CourseResponseDto>>> GetCoursePaginatedListAsync(CoursePaginatedListRequest request);
+        public Task<PigatedResult<CourseResponseDto>> GetCoursePaginatedListAsync(CoursePaginatedListRequest request);
 
 
 

@@ -1,6 +1,8 @@
-﻿namespace LMS.Bussiness.DTOS.ModuleDtos
+﻿using LMS.Bussiness.DTOS.UserDto;
+
+namespace LMS.Bussiness.DTOS.ModuleDtos
 {
-    public class ModulePaginatedListRequest
+    public class ModulePaginatedListRequest : UserPaginatedListRequest
     {
     }
 }

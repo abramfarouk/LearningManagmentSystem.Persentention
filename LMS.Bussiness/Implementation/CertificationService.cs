@@ -195,6 +195,11 @@ namespace LMS.Bussiness.Implementation
             }
 
         }
+
+        Task<PigatedResult<CerificationResponseDto>> ICertificationService.GetCerificationPigationListAsync(CertificationPaginatedListRequest request)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

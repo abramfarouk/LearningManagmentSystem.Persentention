@@ -1,4 +1,5 @@
 ﻿using LMS.Bussiness.DTOS.AssignmentDtos;
+using LMS.Data.Bases;
 
 namespace LMS.Bussiness.Interfaces
 {
@@ -13,8 +14,8 @@ namespace LMS.Bussiness.Interfaces
 
         #region Query  
         public Task<GResponse<IEnumerable<GetAssignmentResponseDto>>> GetAllAssignmentListAsync();
-        public Task<GResponse<GetAssignmentResponseDto>> GetAssignmentByIdAsync();
-        public Task<GResponse<GetAssignmentResponseDto>> GetPaginatedAssignmentListAsync(GetAssignmentPaginatedListRequest request);
+        public Task<GResponse<GetAssignmentResponseDto>> GetAssignmentByIdAsync(int AssignmentId);
+        public Task<PigatedResult<GetAssignmentResponseDto>> GetPaginatedAssignmentListAsync(GetAssignmentPaginatedListRequest request);
 
         #endregion
     }

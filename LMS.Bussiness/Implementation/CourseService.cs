@@ -162,7 +162,10 @@ namespace LMS.Bussiness.Implementation
             throw new NotImplementedException();
         }
 
-
+        Task<PigatedResult<CourseResponseDto>> ICourseService.GetCoursePaginatedListAsync(CoursePaginatedListRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
