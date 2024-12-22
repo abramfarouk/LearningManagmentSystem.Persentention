@@ -1,6 +1,8 @@
-﻿namespace LMS.Bussiness.DTOS.NotificationDtos
+﻿using LMS.Bussiness.DTOS.UserDto;
+
+namespace LMS.Bussiness.DTOS.NotificationDtos
 {
-    public class NotificationPaginatedListRequest
+    public class NotificationPaginatedListRequest : UserPaginatedListRequest
     {
     }
 }

@@ -3,7 +3,7 @@ using LMS.Data.Bases;
 
 namespace LMS.Bussiness.Interfaces
 {
-    interface INotificationService
+    public interface INotificationService
     {
 
         public Task<GResponse<string>> AddNotificationAsync(AddNotificationRequest request);
@@ -11,7 +11,7 @@ namespace LMS.Bussiness.Interfaces
         public Task<GResponse<string>> UpdateNotificationAsync(UpdateNotificationRequest request);
         public Task<GResponse<List<NotificationResponse>>> GetAllNotificationListAsync();
         public Task<GResponse<NotificationResponse>> GetNotificationByIdAsync(int notificationId);
-        public Task<GResponse<PigatedResult<NotificationResponse>>> NotificationPaginatedListAsync(NotificationPaginatedListRequest request);
+        public Task<PigatedResult<NotificationResponse>> NotificationPaginatedListAsync(NotificationPaginatedListRequest request);
 
     }
 }
