@@ -11,6 +11,10 @@ namespace LMS.Bussiness.Validations.Module
         }
         public void ApplyValidationRules()
         {
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Title can't be Empty")
+           .NotNull().WithMessage("Title Is required");
+            RuleFor(x => x.CourseId).NotEmpty().WithMessage("CourseId can't be Empty")
+           .NotNull().WithMessage("CourseId Is required");
 
         }
 

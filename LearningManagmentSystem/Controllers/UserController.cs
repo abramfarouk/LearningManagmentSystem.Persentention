@@ -80,6 +80,19 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
         }
 
+        [HttpPost("Add-Teacher")]
+        public async Task<IActionResult> AddTeacher([FromBody] AddUserRequest request)
+        {
+            var response = await _userService.AddUserAsync(request, "teacher");
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+
         [HttpPut("Update-Student")]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateUserRequest request)
         {

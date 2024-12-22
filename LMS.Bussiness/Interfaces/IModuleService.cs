@@ -1,20 +1,21 @@
 ﻿using LMS.Bussiness.DTOS.ModuleDtos;
+using LMS.Data.Bases;
 
 namespace LMS.Bussiness.Interfaces
 {
     public interface IModuleService
     {
         #region Command  
-        public Task<GResponse<string>> AddModuleServiceAsync(AddModuleRequest request);
-        public Task<GResponse<string>> UpdatedModuleServiceAsync(UpdatedModuleRequest request);
-        public Task<GResponse<string>> DeleteModuleServiceAsync(int Module_Id);
+        public Task<GResponse<string>> AddModuleAsync(AddModuleRequest request);
+        public Task<GResponse<string>> UpdatedModuleAsync(UpdatedModuleRequest request);
+        public Task<GResponse<string>> DeleteModuleAsync(int Module_Id);
 
         #endregion
 
         #region Query  
-        public Task<GResponse<IEnumerable<GetModuleResponseDto>>> GetAllModuleServiceAsync();
-        public Task<GResponse<GetModuleResponseDto>> GetModuleServiceByIdAsync();
-        public Task<GResponse<GetModuleResponseDto>> GetPaginatedModuleServiceListAsync(ModulePaginatedListRequest request);
+        public Task<GResponse<IEnumerable<GetModuleResponseDto>>> GetAllModuleListAsync();
+        public Task<GResponse<GetModuleResponseDto>> GetModuleByIdAsync(int moduleId);
+        public Task<PigatedResult<GetModuleResponseDto>> PaginatedModuleListAsync(ModulePaginatedListRequest request);
 
         #endregion
 
