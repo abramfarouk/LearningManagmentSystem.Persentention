@@ -42,6 +42,11 @@ namespace LMS.Bussiness
             configuration.GetSection(nameof(emailSettings)).Bind(emailSettings);
             services.AddSingleton(emailSettings);
 
+            var jwtSettings = new JwtSettings();
+            configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
+            services.AddSingleton(jwtSettings);
+
+
             return services;
 
         }

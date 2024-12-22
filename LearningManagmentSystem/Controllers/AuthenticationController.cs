@@ -16,6 +16,15 @@ namespace LearningManagmentSystem.Controllers
             _authService = authService;
         }
 
+        [HttpPost("Sign-In")]
+        public async Task<IActionResult> SignInAsync(SignInRequest request)
+        {
+            var response = await _authService.SignInAsync(request);
+            if (response != null)
+                return Ok(response);
+            return BadRequest(response);
+
+        }
 
         [HttpGet("Confirm-Email")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
