@@ -19,13 +19,30 @@ namespace LearningManagmentSystem.Controllers
         [HttpPost("Sign-In")]
         public async Task<IActionResult> SignInAsync(SignInRequest request)
         {
-            var response = await _authService.SignInAsync(request);
+            var response = await _authService.SignIn(request);
             if (response != null)
                 return Ok(response);
             return BadRequest(response);
 
         }
 
+        [HttpGet("IsValid-Token")]
+        public async Task<IActionResult> IsValidToken([FromQuery] string accessToken)
+        {
+            var response = await _authService.IsValidToken(accessToken);
+            if (response != null)
+                return Ok(response);
+            return BadRequest(response);
+        }
+
+        [HttpPost("Refresh-Token")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            var response = await _authService.RefreshToken(request);
+            if (response != null)
+                return Ok(response);
+            return BadRequest(response);
+        }
         [HttpGet("Confirm-Email")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
         {
@@ -42,6 +59,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
+
 
     }
 }

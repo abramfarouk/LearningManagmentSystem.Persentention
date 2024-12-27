@@ -87,7 +87,7 @@ namespace LMS.Bussiness.Implementation
                 Code = WebUtility.UrlEncode(Code);
                 var requestAccessor = _httpContextAccessor.HttpContext.Request;
                 var returnURL = requestAccessor.Scheme + "://" + requestAccessor.Host +
-                    _urlHelper.Action("ConfirmEmail", "Authentication", new { userId = user.Id, code = Code });
+                _urlHelper.Action("ConfirmEmail", "Authentication", new { userId = user.Id, code = Code });
                 await _emailService.SendEmailAsync(user.Email, returnURL);
                 await trans.CommitAsync();
 
@@ -139,6 +139,8 @@ namespace LMS.Bussiness.Implementation
                 {
                     return NotFound<string>($"No found user with Id : {userId}.");
                 }
+
+
                 var result = await _userManager.DeleteAsync(user);
                 if (!result.Succeeded)
                 {

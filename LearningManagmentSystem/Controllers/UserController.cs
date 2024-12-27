@@ -26,7 +26,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
         [HttpGet("Paginated")]
         public async Task<IActionResult> GetUsersPaginated([FromQuery] UserPaginatedListRequest request)
         {
@@ -36,7 +35,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
         [HttpGet("GetUserById")]
         public async Task<IActionResult> GetStudentByIdAsync(int StdId)
         {
@@ -49,7 +47,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
         [HttpPost("Change-Password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordDto request)
         {
@@ -66,7 +63,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
         [HttpPost("Add-Student")]
         public async Task<IActionResult> AddStudent([FromBody] AddUserRequest request)
         {
@@ -79,7 +75,6 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
         [HttpPost("Add-Teacher")]
         public async Task<IActionResult> AddTeacher([FromBody] AddUserRequest request)
         {
@@ -92,8 +87,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
-        [HttpPut("Update-Student")]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateUserRequest request)
         {
             var response = await _userService.UpdateUserAsync(request);
@@ -105,11 +99,10 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-
-        [HttpDelete("Remove-Student")]
-        public async Task<IActionResult> DeleteUserAsync(int StudentId)
+        [HttpDelete("Remove")]
+        public async Task<IActionResult> DeleteUserAsync(int Id)
         {
-            var response = await _userService.DeleteUserAsync(StudentId);
+            var response = await _userService.DeleteUserAsync(Id);
             if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
                 return StatusCode(500, response);
 
@@ -118,5 +111,10 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
+
     }
+
+
+
+
 }

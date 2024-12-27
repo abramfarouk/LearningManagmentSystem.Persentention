@@ -31,12 +31,14 @@ namespace LMS.Bussiness
             #region Services  
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
             services.AddScoped<ICertificationService, CertificationService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IModuleService, ModuleService>();
+            services.AddScoped<IEnrollmentService, EnrollmentService>();
             #endregion
             return services;
         }
