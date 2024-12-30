@@ -1,4 +1,5 @@
-﻿using LMS.Bussiness.DTOS.AuthenticationDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.AuthenticationDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -16,7 +17,7 @@ namespace LearningManagmentSystem.Controllers
             _authService = authService;
         }
 
-        [HttpPost("Sign-In")]
+        [HttpPost(Router.AuthenicationRouting.SignIn)]
         public async Task<IActionResult> SignInAsync(SignInRequest request)
         {
             var response = await _authService.SignIn(request);
@@ -26,7 +27,7 @@ namespace LearningManagmentSystem.Controllers
 
         }
 
-        [HttpGet("IsValid-Token")]
+        [HttpGet(Router.AuthenicationRouting.IsValidToken)]
         public async Task<IActionResult> IsValidToken([FromQuery] string accessToken)
         {
             var response = await _authService.IsValidToken(accessToken);
@@ -35,7 +36,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpPost("Refresh-Token")]
+        [HttpPost(Router.AuthenicationRouting.RefreshToken)]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
             var response = await _authService.RefreshToken(request);
@@ -43,7 +44,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpGet("Confirm-Email")]
+        [HttpGet(Router.AuthenicationRouting.ConfirmEmail)]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
         {
             var response = await _authService.ConfirmEmailAsync(request);

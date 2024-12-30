@@ -39,6 +39,8 @@ namespace LMS.Bussiness
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IModuleService, ModuleService>();
             services.AddScoped<IEnrollmentService, EnrollmentService>();
+            services.AddScoped<ILessonService, LessonService>();
+            services.AddScoped<IVideoService, VideoService>();
             #endregion
             return services;
         }

@@ -22,28 +22,65 @@ namespace LMS.Bussiness.Implementation
 
         #region Functions
 
-        public async Task<string?> UploadVideoAsync(IFormFile? videoFile)
+        //public async Task<string> UploadVideoAsync(IFormFile videoFile)
+        //{
+        //    if (videoFile == null || videoFile.Length == 0)
+        //        return null;
+
+        //    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "videos");
+        //    if (!Directory.Exists(uploadsFolder))
+        //        Directory.CreateDirectory(uploadsFolder);
+
+        //    string uniqueFileName = Guid.NewGuid().ToString() + "_" + videoFile.FileName;
+        //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await videoFile.CopyToAsync(fileStream);
+        //    }
+
+        //    string baseUrl = _configuration.GetValue<string>("AppSettings:BaseUrl");
+        //    if (string.IsNullOrEmpty(baseUrl))
+        //    {
+        //        baseUrl = _webHostEnvironment.IsDevelopment() ? "https://localhost:7282" : "https://yourdomain.com";
+        //    }
+
+        //    return $"{baseUrl}/videos/{uniqueFileName}";
+        //}
+
+
+        public async Task<string> UploadVideoAsync(IFormFile videoFile)
         {
             if (videoFile == null || videoFile.Length == 0)
-                return null;
+                throw new ArgumentException("Invalid video file.");
 
+            // Ensure _webHostEnvironment and _configuration are injected.
+            if (_webHostEnvironment == null || _configuration == null)
+                throw new InvalidOperationException("Dependencies are not properly configured.");
+
+            // Prepare the upload folder path.
             string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "videos");
-            Directory.CreateDirectory(uploadsFolder);
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
 
-            string uniqueFileName = Guid.NewGuid().ToString() + "_" + videoFile.FileName;
+            // Generate a safe, unique file name.
+            string uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(videoFile.FileName)}";
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            // Save the file asynchronously.
+            await using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await videoFile.CopyToAsync(fileStream);
             }
 
-            string baseUrl = _configuration.GetValue<string>("AppSettings:BaseUrl");
-            if (string.IsNullOrEmpty(baseUrl))
-            {
-                baseUrl = _webHostEnvironment.IsDevelopment() ? "https://localhost:7264" : "https://yourdomain.com";
-            }
+            // Get the base URL.
+            string baseUrl = _configuration.GetValue<string>("AppSettings:BaseUrl") ??
+                             (_webHostEnvironment.IsDevelopment() ? "https://localhost:7282" : "https://yourdomain.com");
 
+            if (string.IsNullOrEmpty(baseUrl))
+                throw new InvalidOperationException("Base URL is not configured.");
+
+            // Return the full URL to the uploaded video.
             return $"{baseUrl}/videos/{uniqueFileName}";
         }
 

@@ -1,11 +1,11 @@
 ﻿using LMS.Bussiness.DTOS.AssignmentDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Router = LearningManagmentSystem.AppMetaData.Router;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class AssignmentController : ControllerBase
     {
         private readonly IAssignmentService _assignmentService;
@@ -14,7 +14,7 @@ namespace LearningManagmentSystem.Controllers
             _assignmentService = assignmentService;
         }
 
-        [HttpGet("Paginated")]
+        [HttpGet(Router.AssignmentRouting.Paginated)]
         public async Task<IActionResult> GetAssignmentPaginatedListAsync([FromQuery] GetAssignmentPaginatedListRequest request)
         {
             var response = await _assignmentService.GetPaginatedAssignmentListAsync(request);
@@ -24,9 +24,6 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
 
         }
-
-
-
 
         [HttpPost]
         public async Task<IActionResult> CreateAssignmentAsync([FromBody] AddAssignmentRequest request)
@@ -38,8 +35,7 @@ namespace LearningManagmentSystem.Controllers
 
         }
 
-
-        [HttpGet("GetAllAssignment")]
+        [HttpGet(Router.AssignmentRouting.List)]
         public async Task<IActionResult> GetAssignmentAsync()
         {
             var response = await _assignmentService.GetAllAssignmentListAsync();
@@ -48,8 +44,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-
-        [HttpGet("GetAssignmentById")]
+        [HttpGet(Router.AssignmentRouting.GetById)]
         public async Task<IActionResult> GetAssignmentByIdAsync(int AssignmentId)
         {
             var response = await _assignmentService.GetAssignmentByIdAsync(AssignmentId);
@@ -59,7 +54,7 @@ namespace LearningManagmentSystem.Controllers
 
         }
 
-        [HttpPut("Update_Assignment")]
+        [HttpPut(Router.AssignmentRouting.Edit)]
         public async Task<IActionResult> UpdatedAssignmentAsync(UpdatedAssignmentRequest request)
         {
             var response = await _assignmentService.UpdatedAssignmentAsync(request);
@@ -68,8 +63,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpDelete]
-
+        [HttpDelete(Router.AssignmentRouting.Delete)]
         public async Task<IActionResult> RemoveAssignmentAsync(int Id)
         {
             var response = await _assignmentService.DeleteAssignmentAsync(Id);
@@ -77,7 +71,6 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-
 
     }
 }
