@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.ModuleDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.ModuleDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class ModuleController : ControllerBase
     {
         private readonly IModuleService _moduleService;
@@ -13,7 +13,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _moduleService = moduleService;
         }
-        [HttpGet("List")]
+        [HttpGet(Router.ModuleRouting.List)]
         public async Task<IActionResult> GetModuleAsync()
         {
             var response = await _moduleService.GetAllModuleListAsync();
@@ -22,7 +22,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetById")]
+        [HttpGet(Router.ModuleRouting.GetById)]
         public async Task<IActionResult> GetModuleByIdAsync(int moduleId)
         {
             var response = await _moduleService.GetModuleByIdAsync(moduleId);
@@ -30,9 +30,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-
-
-        [HttpPost]
+        [HttpPost(Router.ModuleRouting.Create)]
         public async Task<IActionResult> AddModuleAsync(AddModuleRequest request)
         {
             var response = await _moduleService.AddModuleAsync(request);
@@ -40,8 +38,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-
-        [HttpGet("PaginatedList")]
+        [HttpGet(Router.ModuleRouting.Paginated)]
         public async Task<IActionResult> PaginatedModuleListAsync([FromQuery] ModulePaginatedListRequest request)
         {
             var response = await _moduleService.PaginatedModuleListAsync(request);
@@ -50,7 +47,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpPut]
+        [HttpPut(Router.ModuleRouting.Edit)]
         public async Task<IActionResult> UpdatedModuleAsync(UpdatedModuleRequest request)
         {
             var response = await _moduleService.UpdatedModuleAsync(request);
@@ -59,7 +56,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpDelete]
+        [HttpDelete(Router.ModuleRouting.Delete)]
         public async Task<IActionResult> DeleteModuleAsync(int moduleId)
         {
             var response = await _moduleService.DeleteModuleAsync(moduleId);

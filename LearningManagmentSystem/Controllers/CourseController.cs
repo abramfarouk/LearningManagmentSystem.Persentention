@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.CourseDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.CourseDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -13,7 +13,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _courseService = courseService;
         }
-        [HttpGet("Get-All-Courses")]
+        [HttpGet(Router.CourseRouting.List)]
         public async Task<IActionResult> GetAllCourses()
         {
             var result = await _courseService.GetAllCoursesAsync();
@@ -24,7 +24,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("Get-Course-By-Id/{courseId}")]
+        [HttpGet(Router.CourseRouting.GetById)]
         public async Task<IActionResult> GetCourseById(int courseId)
         {
             var result = await _courseService.GetCourseByIdAsync(courseId);
@@ -35,7 +35,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("Add-Course")]
+        [HttpPost(Router.CourseRouting.Create)]
         public async Task<IActionResult> AddCourse([FromBody] AddCourseRequest request)
         {
             var result = await _courseService.AddCourseAsync(request);
@@ -46,7 +46,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("Delete-Course/{Crs_Id}")]
+        [HttpDelete(Router.CourseRouting.Delete)]
         public async Task<IActionResult> RemoveCourse(int Crs_Id)
         {
             var result = await _courseService.DeleteCourseAsync(Crs_Id);
@@ -57,7 +57,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut("Update_Course")]
+        [HttpPut(Router.CourseRouting.Edit)]
         public async Task<IActionResult> UpdateCourse(UpdateCourseRequest request)
         {
             var res = await _courseService.UpdateCourseAsync(request);

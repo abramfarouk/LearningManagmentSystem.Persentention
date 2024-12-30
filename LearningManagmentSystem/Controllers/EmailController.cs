@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.EmailDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.EmailDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;
@@ -13,7 +13,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _emailService = emailService;
         }
-        [HttpPost("Send")]
+        [HttpPost(Router.EmailRouting.SendEmail)]
         public async Task<IActionResult> SendEmail([FromForm] SendEmailDto request)
         {
             var result = await _emailService.SendEmailAsync(request.Email, request.Mess);

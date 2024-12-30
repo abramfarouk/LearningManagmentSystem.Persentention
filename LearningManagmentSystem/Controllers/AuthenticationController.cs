@@ -6,8 +6,7 @@ using System.Net;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class AuthenticationController : ControllerBase
     {
 

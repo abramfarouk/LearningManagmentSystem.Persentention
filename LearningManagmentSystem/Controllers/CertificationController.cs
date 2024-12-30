@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.CertificateDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.CertificateDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class CertificationController : ControllerBase
     {
         private readonly ICertificationService _certificationService;
@@ -13,7 +13,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _certificationService = certificationService;
         }
-        [HttpGet("Get-All-Certifications")]
+        [HttpGet(Router.CertificationRouting.List)]
         public async Task<IActionResult> GetAllCertifications()
         {
             var result = await _certificationService.GetCerificationListAsync();
@@ -24,7 +24,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("CertificatedById")]
+        [HttpGet(Router.CertificationRouting.GetById)]
         public async Task<IActionResult> GetCertificationById(int Certificated_Id)
         {
             var Response = await _certificationService.GetCerificationByIdAsync(Certificated_Id);
@@ -38,7 +38,7 @@ namespace LearningManagmentSystem.Controllers
             }
 
         }
-        [HttpPost("Add_Certification")]
+        [HttpPost(Router.CertificationRouting.Create)]
         public async Task<IActionResult> AddCertification([FromBody] AddCeritificationRequest request)
         {
             var CertificationRespone = await _certificationService.AddCeritifcationAsync(request); ;
@@ -48,7 +48,7 @@ namespace LearningManagmentSystem.Controllers
 
 
         }
-        [HttpDelete]
+        [HttpDelete(Router.CertificationRouting.Delete)]
         public async Task<IActionResult> DeteleCertificationAnysc(int Certification_Id)
         {
             var response = await _certificationService.DeleteCeritifcationAsync(Certification_Id);
@@ -56,7 +56,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpPut]
+        [HttpPut(Router.CertificationRouting.Edit)]
         public async Task<IActionResult> UpdateCertificationAsync(UpdateCeritificationRequest request)
         {
             var response = await _certificationService.UpdateCeritifcationAsync(request);

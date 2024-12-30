@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.EnrollmentDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.EnrollmentDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class EnrollmentController : ControllerBase
     {
         private readonly IEnrollmentService _enrollmentService;
@@ -14,7 +14,7 @@ namespace LearningManagmentSystem.Controllers
             _enrollmentService = enrollmentService;
         }
 
-        [HttpGet("GetEnrollments")]
+        [HttpGet(Router.EnrollmentRouting.List)]
         public async Task<IActionResult> GetEnrollments()
         {
             var response = await _enrollmentService.GetEnrollmentsAsync();
@@ -25,7 +25,7 @@ namespace LearningManagmentSystem.Controllers
 
         }
 
-        [HttpGet("GetEnrollmentById/{id}")]
+        [HttpGet(Router.EnrollmentRouting.GetById)]
         public async Task<IActionResult> GetEnrollmentById(int id)
         {
             var response = await _enrollmentService.GetEnrollmentByIdAsync(id);
@@ -42,7 +42,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpPost("CreateEnrollment")]
+        [HttpPost(Router.EnrollmentRouting.Create)]
         public async Task<IActionResult> CreateEnrollment(AddEnrollmentRequest request)
         {
             var response = await _enrollmentService.CreateEnrollmentAsync(request);
@@ -50,7 +50,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpPut("UpdateEnrollment")]
+        [HttpPut(Router.EnrollmentRouting.Edit)]
         public async Task<IActionResult> UpdateEnrollment(UpdateEnrollmentRequest request)
         {
             var response = await _enrollmentService.UpdateEnrollmentAsync(request);
@@ -58,7 +58,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpDelete("DeleteEnrollment/{id}")]
+        [HttpDelete(Router.EnrollmentRouting.Delete)]
         public async Task<IActionResult> DeleteEnrollment(int id)
         {
             var response = await _enrollmentService.DeleteEnrollmentAsync(id);

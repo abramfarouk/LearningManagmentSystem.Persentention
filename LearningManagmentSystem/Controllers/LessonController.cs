@@ -1,11 +1,11 @@
-﻿using LMS.Bussiness.DTOS.LessonDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.LessonDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class LessonController : ControllerBase
     {
 
@@ -14,7 +14,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _lessonService = lessonService;
         }
-        [HttpGet("GetLessons")]
+        [HttpGet(Router.LessonRouting.List)]
         public async Task<IActionResult> GetLessonsAsync()
         {
             var response = await _lessonService.GetLessonsAsync();
@@ -23,7 +23,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("GetLessonById/{lessonId}")]
+        [HttpGet(Router.LessonRouting.GetById)]
         public async Task<IActionResult> GetLessonByIdAsync(int lessonId)
         {
             var response = await _lessonService.GetLessonByIdAsync(lessonId);
@@ -31,7 +31,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpPut("UpdateLesson")]
+        [HttpPut(Router.LessonRouting.Edit)]
         public async Task<IActionResult> UpdateLessonAsync([FromForm] UpdateLessonRequest request)
         {
             var response = await _lessonService.UpdateLessonAsync(request);
@@ -39,7 +39,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpPost("AddLesson")]
+        [HttpPost(Router.LessonRouting.Create)]
         public async Task<IActionResult> AddLessonAsync([FromForm] AddLessonRequest request)
         {
             var response = await _lessonService.AddLessonAsync(request);
@@ -48,7 +48,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpDelete("DeleteLesson/{lessonId}")]
+        [HttpDelete(Router.LessonRouting.Delete)]
         public async Task<IActionResult> DeleteLessonAsync(int lessonId)
         {
             var response = await _lessonService.DeleteLessonAsync(lessonId);
@@ -56,7 +56,7 @@ namespace LearningManagmentSystem.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-        [HttpGet("PaginatedList")]
+        [HttpGet(Router.LessonRouting.Paginated)]
         public async Task<IActionResult> GetLessonsPaginatedListAsync([FromQuery] LessonPaginatedListRequest request)
         {
             var response = await _lessonService.GetLessonsPaginatedListAsync(request);

@@ -1,12 +1,12 @@
-﻿using LMS.Bussiness.DTOS.UserDto;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.UserDto;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -14,7 +14,7 @@ namespace LearningManagmentSystem.Controllers
         {
             _userService = userService;
         }
-        [HttpGet("GetAllUser")]
+        [HttpGet(Router.UserRouting.List)]
         public async Task<IActionResult> GetStudentListAsync()
         {
             var response = await _userService.GetUserListAsync();
@@ -26,7 +26,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpGet("Paginated")]
+        [HttpGet(Router.UserRouting.Prefix)]
         public async Task<IActionResult> GetUsersPaginated([FromQuery] UserPaginatedListRequest request)
         {
             var response = await _userService.GetUserPaginatedListAsync(request);
@@ -35,7 +35,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpGet("GetUserById")]
+        [HttpGet(Router.UserRouting.GetById)]
         public async Task<IActionResult> GetStudentByIdAsync(int StdId)
         {
             var response = await _userService.GetUserByIdAsync(StdId);
@@ -47,7 +47,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpPost("Change-Password")]
+        [HttpPost(Router.UserRouting.ChangePassword)]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordDto request)
         {
             var response = await _userService.ChangeUserPasswordAsync(request);
@@ -63,7 +63,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpPost("Add-Student")]
+        [HttpPost(Router.UserRouting.AddStudent)]
         public async Task<IActionResult> AddStudent([FromBody] AddUserRequest request)
         {
             var response = await _userService.AddUserAsync(request, "student");
@@ -75,7 +75,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpPost("Add-Teacher")]
+        [HttpPost(Router.UserRouting.AddTeacher)]
         public async Task<IActionResult> AddTeacher([FromBody] AddUserRequest request)
         {
             var response = await _userService.AddUserAsync(request, "teacher");
@@ -87,7 +87,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpPut("Update")]
+        [HttpPut(Router.UserRouting.Edit)]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateUserRequest request)
         {
             var response = await _userService.UpdateUserAsync(request);
@@ -99,7 +99,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpDelete("Remove")]
+        [HttpDelete(Router.UserRouting.Delete)]
         public async Task<IActionResult> DeleteUserAsync(int Id)
         {
             var response = await _userService.DeleteUserAsync(Id);

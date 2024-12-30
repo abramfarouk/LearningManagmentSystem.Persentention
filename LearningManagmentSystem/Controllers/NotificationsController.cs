@@ -1,12 +1,12 @@
-﻿using LMS.Bussiness.DTOS.NotificationDtos;
+﻿using LearningManagmentSystem.AppMetaData;
+using LMS.Bussiness.DTOS.NotificationDtos;
 using LMS.Bussiness.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class NotificationsController : ControllerBase
     {
         private readonly INotificationService _notificationService;
@@ -15,7 +15,7 @@ namespace LearningManagmentSystem.Controllers
             _notificationService = notificationService;
         }
 
-        [HttpGet("GetAllNotification")]
+        [HttpGet(Router.NotificationRouting.List)]
         public async Task<IActionResult> GetNotificationListAsync()
         {
             var response = await _notificationService.GetAllNotificationListAsync();
@@ -27,7 +27,7 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
-        [HttpGet("GetNotificationById")]
+        [HttpGet(Router.NotificationRouting.GetById)]
         public async Task<IActionResult> GetNotificationByIdAsync(int NotificationId)
         {
             var response = await _notificationService.GetNotificationByIdAsync(NotificationId);
@@ -40,7 +40,7 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
         }
 
-        [HttpGet("Paginated")]
+        [HttpGet(Router.NotificationRouting.Paginated)]
         public async Task<IActionResult> GetNotificationPaginatedListAsync([FromQuery] NotificationPaginatedListRequest request)
         {
             var response = await _notificationService.NotificationPaginatedListAsync(request);
@@ -50,7 +50,7 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
         }
 
-        [HttpPost("Create-Notification")]
+        [HttpPost(Router.NotificationRouting.Create)]
         public async Task<IActionResult> CreateNotificationAsync([FromBody] AddNotificationRequest request)
         {
             var response = await _notificationService.AddNotificationAsync(request);
@@ -59,7 +59,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
 
         }
-        [HttpPut("Update-Notification")]
+        [HttpPut(Router.NotificationRouting.Edit)]
         public async Task<IActionResult> UpdateNotificationAsync(UpdateNotificationRequest request)
         {
             var response = await _notificationService.UpdateNotificationAsync(request);
@@ -68,7 +68,7 @@ namespace LearningManagmentSystem.Controllers
             return BadRequest(response);
         }
 
-        [HttpDelete]
+        [HttpDelete(Router.NotificationRouting.Delete)]
         public async Task<IActionResult> DeleteNotificationAsync(int NotificationId)
         {
             var response = await _notificationService.DeleteNotificationAsync(NotificationId);
