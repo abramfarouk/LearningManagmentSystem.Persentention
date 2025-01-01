@@ -60,6 +60,50 @@ namespace LearningManagmentSystem.Controllers
             return Ok(response);
         }
 
+        [HttpPost(Router.AuthenicationRouting.SendResetPasswordCode)]
+        public async Task<IActionResult> SendResetPasswordCodeAsync([FromBody] ResetPasswordRequest request)
+        {
+            var response = await _authService.SendResetPasswordCode(request.Email);
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
 
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+        [HttpPost(Router.AuthenicationRouting.ConfirmResetPassword)]
+        public async Task<IActionResult> ConfirmResetPasswordAsync([FromBody] ConfirmResetPasswordRequest request)
+        {
+            var response = await _authService.ConfirmResetPassword(request.Code, request.Email);
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+        [HttpPost(Router.AuthenicationRouting.ResetPassword)]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDto request)
+        {
+            var response = await _authService.ResetPassword(request.Email, request.Password);
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

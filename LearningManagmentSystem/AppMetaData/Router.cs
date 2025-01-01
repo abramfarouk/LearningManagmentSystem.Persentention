@@ -21,6 +21,9 @@
         {
             public const string Prefix = Rule + "Authenication/";
             public const string SignIn = Prefix + "Sign-In";
+            public const string ResetPassword = Prefix + "Reset-Password";
+            public const string ConfirmResetPassword = Prefix + "Confirm-Reset-Password";
+            public const string SendResetPasswordCode = Prefix + "Send-Reset-Password-Code";
             public const string IsValidToken = Prefix + "IsValid-Token";
             public const string RefreshToken = Prefix + "Refresh-Token";
             public const string ConfirmEmail = Prefix + "Confirm-Email";
@@ -89,6 +92,7 @@
             public const string Prefix = Rule + "Notification/";
             public const string List = Prefix + "List";
             public const string Paginated = Prefix + "Paginated";
+            public const string Create = Prefix + "Create";
             public const string GetById = Prefix + "GetById/{id:int}";
 
             public const string Edit = Prefix + "Edit";

@@ -18,13 +18,16 @@ namespace LMS.Bussiness.Implementation
         private readonly SignInManager<User> _signInManager;
         private readonly IGenericRepository<UserRefreshToken> _userRefreshTokenRepo;
         private readonly JwtSettings _jwtSettings;
-        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager, IGenericRepository<UserRefreshToken> userRefreshTokenRepo, JwtSettings jwtSettings)
+        private readonly IEmailService _emailService;
+        private readonly IGenericRepository<User> _userRepo;
+        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager, IGenericRepository<UserRefreshToken> userRefreshTokenRepo, JwtSettings jwtSettings, IEmailService emailService, IGenericRepository<User> userRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userRefreshTokenRepo = userRefreshTokenRepo;
             _jwtSettings = jwtSettings;
-
+            _emailService = emailService;
+            _userRepo = userRepo;
         }
         public async Task<GResponse<string>> ConfirmEmailAsync(ConfirmEmailRequest request)
         {
@@ -236,7 +239,6 @@ namespace LMS.Bussiness.Implementation
             var userNameClaim = jwtToken.Claims.FirstOrDefault(x => x.Type.Contains("name", StringComparison.OrdinalIgnoreCase))?.Value;
             if (userNameClaim == null)
             {
-                // معالجة الخطأ إذا كان UserName claim غير موجود
                 throw new InvalidOperationException("UserName claim is missing in the JWT token.");
             }
 
@@ -328,26 +330,91 @@ namespace LMS.Bussiness.Implementation
             await _userRefreshTokenRepo.UpdateAnsyc(userRefreshToken);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private string GetErrors(IEnumerable<IdentityError> errors)
         {
             return "An Error " + string.Join(", ", errors.Select(x => x.Description));
+        }
+
+        public async Task<GResponse<string>> SendResetPasswordCode(string Email)
+        {
+
+            //1-User
+            //2-not Founded
+            //3-Geneate Random number Code 
+            //4-Update user Code In dB
+            //5-Send COdeto Email 
+            //6-success
+            var trans = await _userRepo.BeginTransactionAsync();
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(Email);
+                if (user == null)
+                {
+                    return NotFound<string>("User Not Found Try again");
+                }
+
+                Random generator = new Random();
+                var RandomCode = generator.Next(1, 10000000).ToString("D8");
+
+                user.Code = RandomCode;
+                await _userManager.UpdateAsync(user);
+
+                var SendEmail = await _emailService.SendEmailAsync(Email, $"Code To Reset Password  : <b class='text-primary'>{RandomCode}</b>");
+                if (!SendEmail.IsSuccess)
+                {
+                    return BadRequest<string>("An Error Occurred While Sending Email");
+                }
+                else
+                {
+                    await trans.CommitAsync();
+                    return Success<string>("Code Send Successfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return BadRequest<string>($"An error occurred: {ex.Message}");
+            }
+        }
+
+        public async Task<GResponse<string?>> ConfirmResetPassword(string code, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound<string?>("User Not Found Try again");
+            }
+            if (user.Code == code)
+            {
+                return Success<string?>("Code Is Correct");
+            }
+            return BadRequest<string?>("Code Is Not Correct");
+
+        }
+
+        public async Task<GResponse<string>> ResetPassword(string Email, string Password)
+        {
+            var trans = await _userRepo.BeginTransactionAsync();
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(Email);
+                if (user == null)
+                {
+                    return NotFound<string>("User Not Found Try again");
+                }
+                await _userManager.RemovePasswordAsync(user);
+                if (!await _userManager.HasPasswordAsync(user))
+                {
+                    await _userManager.AddPasswordAsync(user, Password);
+                }
+                await trans.CommitAsync();
+                return Success<string>("Password Reset Successfully");
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return BadRequest<string>($"An error occurred: {ex.Message}");
+            }
         }
         #endregion
 
