@@ -1,6 +1,8 @@
-﻿namespace LMS.Bussiness.DTOS.ForumPostDtos
+﻿using LMS.Bussiness.DTOS.UserDto;
+
+namespace LMS.Bussiness.DTOS.ForumPostDtos
 {
-    public class PaginatedListForumPostRequest
+    public class PaginatedListForumPostRequest : UserPaginatedListRequest
     {
     }
 }

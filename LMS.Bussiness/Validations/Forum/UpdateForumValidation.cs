@@ -12,7 +12,10 @@ namespace LMS.Bussiness.Validations.Forum
 
         public void ApplyValidationRules()
         {
-
+            RuleFor(x => x.Id).NotNull().WithMessage("ForumId is required")
+                .NotEmpty().WithMessage("ForumId Can't Be Empty");
+            RuleFor(x => x.CourseId).NotNull().WithMessage("CourseId is required")
+         .NotEmpty().WithMessage("CourseId Can't Be Empty");
         }
     }
 }

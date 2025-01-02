@@ -1,6 +1,8 @@
 ﻿namespace LMS.Bussiness.DTOS.FormsDtos
 {
-    public class UpdateForumRequest
+    public class UpdateForumRequest : AddForumRequest
     {
+        public int Id { get; set; }
+
     }
 }
