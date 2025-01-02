@@ -48,6 +48,16 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + "Delete";
         }
+        public static class SubmissionRouting
+        {
+            public const string Prefix = Rule + "Submissions/";
+            public const string List = Prefix + "List";
+            public const string Paginated = Prefix + "Paginated";
+            public const string GetById = Prefix + "GetById/{id:int}";
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + "Delete";
+        }
 
         public static class CourseRouting
         {
