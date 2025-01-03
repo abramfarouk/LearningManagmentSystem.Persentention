@@ -87,6 +87,18 @@ namespace LearningManagmentSystem.Controllers
 
             return Ok(response);
         }
+        [HttpPost(Router.UserRouting.AddAdmin)]
+        public async Task<IActionResult> AddAdmin([FromBody] AddUserRequest request)
+        {
+            var response = await _userService.AddUserAsync(request, "Admin");
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.InternalServerError)
+                return StatusCode(500, response);
+
+            if (!response.IsSuccess && response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
         [HttpPut(Router.UserRouting.Edit)]
         public async Task<IActionResult> UpdateStudent([FromBody] UpdateUserRequest request)
         {

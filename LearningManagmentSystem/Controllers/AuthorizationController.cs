@@ -6,7 +6,7 @@ using IAuthorizationService = LMS.Bussiness.Interfaces.IAuthorizationService;
 
 namespace LearningManagmentSystem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AuthorizationController : ControllerBase
     {
         private readonly IAuthorizationService _authService;

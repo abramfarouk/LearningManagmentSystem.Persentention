@@ -158,6 +158,7 @@
             public const string ChangePassword = Prefix + "Change-Password";
             public const string AddStudent = Prefix + "Add-Student";
             public const string AddTeacher = Prefix + "Add-Teacher";
+            public const string AddAdmin = Prefix + "Add-Admin";
         }
         public static class EnrollmentRouting
         {
