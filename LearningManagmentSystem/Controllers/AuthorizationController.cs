@@ -1,11 +1,12 @@
 ﻿using LearningManagmentSystem.AppMetaData;
 using LMS.Bussiness.DTOS.AuthorizationDtos;
-using LMS.Bussiness.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using IAuthorizationService = LMS.Bussiness.Interfaces.IAuthorizationService;
 
 namespace LearningManagmentSystem.Controllers
 {
-
+    [Authorize]
     public class AuthorizationController : ControllerBase
     {
         private readonly IAuthorizationService _authService;

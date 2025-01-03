@@ -1,8 +1,11 @@
 ﻿using LMS.Data.Data;
 using LMS.Data.Data.Entities.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LMS.Bussiness
 {
@@ -45,6 +48,35 @@ namespace LMS.Bussiness
             var jwtSettings = new JwtSettings();
             configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
             services.AddSingleton(jwtSettings);
+
+
+
+
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(x =>
+              {
+                  x.RequireHttpsMetadata = false;
+                  x.SaveToken = true;
+                  x.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = jwtSettings.ValidateIssure,
+                      ValidIssuers = new[] { jwtSettings.Issure },
+                      ValidateIssuerSigningKey = jwtSettings.ValidateIssureSigningKey,
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                      ValidAudience = jwtSettings.Audience,
+                      ValidateAudience = jwtSettings.ValidateAudience,
+                      ValidateLifetime = jwtSettings.ValidateLifetime,
+                  };
+              });
+
+
+
+
 
 
             return services;

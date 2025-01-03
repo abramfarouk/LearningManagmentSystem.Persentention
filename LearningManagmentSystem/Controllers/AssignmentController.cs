@@ -1,11 +1,13 @@
 ﻿using LMS.Bussiness.DTOS.AssignmentDtos;
 using LMS.Bussiness.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Router = LearningManagmentSystem.AppMetaData.Router;
 
 namespace LearningManagmentSystem.Controllers
 {
 
+    [Authorize]
     public class AssignmentController : ControllerBase
     {
         private readonly IAssignmentService _assignmentService;
