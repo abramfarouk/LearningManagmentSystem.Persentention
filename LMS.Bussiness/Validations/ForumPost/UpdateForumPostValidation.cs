@@ -15,6 +15,5 @@ namespace LMS.Bussiness.Validations.ForumPost
         }
 
     }
-    {
-    }
+
 }

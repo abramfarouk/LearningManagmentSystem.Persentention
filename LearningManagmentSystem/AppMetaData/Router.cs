@@ -90,6 +90,16 @@
             public const string Edit = Prefix + "Edit";
             public const string Delete = Prefix + "Delete";
         }
+        public static class GradeRouting
+        {
+            public const string Prefix = Rule + "Grade/";
+            public const string List = Prefix + "List";
+            public const string GetById = Prefix + "GetById/{id:int}";
+            public const string GetByName = Prefix + "GetByName/{name:alpha}";
+            public const string Create = Prefix + "Create";
+            public const string Edit = Prefix + "Edit";
+            public const string Delete = Prefix + "Delete";
+        }
 
         public static class LessonRouting
         {

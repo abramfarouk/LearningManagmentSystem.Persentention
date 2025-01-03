@@ -24,7 +24,6 @@ namespace LearningManagmentSystem.Controllers
             }
             return Ok(response);
         }
-
         [HttpGet(Router.ForumPostRouting.GetById)]
         public async Task<IActionResult> GetForumPostByIdAsync(int id)
         {

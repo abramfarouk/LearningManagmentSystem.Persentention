@@ -41,6 +41,11 @@ namespace LMS.Bussiness
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IVideoService, VideoService>();
+            services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IForumPostService, ForumPostService>();
+            services.AddScoped<IGradeService, GradeService>();
+            services.AddScoped<ISubmissionService, SubmissionService>();
+
             #endregion
             return services;
         }
